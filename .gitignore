@@ -6,3 +6,7 @@ obj/
 *.user
 # Godot export
 export_presets.cfg
+
+# JetBrains IDEs (GoLand, IntelliJ, etc.)
+.idea/
+*.iml
