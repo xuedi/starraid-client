@@ -1,0 +1,8 @@
+# Godot
+.godot/
+# .NET
+bin/
+obj/
+*.user
+# Godot export
+export_presets.cfg
