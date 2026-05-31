@@ -15,3 +15,8 @@ project/assembly_name="Starraid.Client"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[rendering]
+
+; Crisp pixel-art: 50×50 ship sprites must not blur when scaled/zoomed.
+textures/canvas_textures/default_texture_filter=0
