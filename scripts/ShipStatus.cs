@@ -24,9 +24,18 @@ public partial class ShipStatus : Control
 
     public override void _Ready()
     {
-        CustomMinimumSize = new Vector2(Box, Box);
-        SetAnchorsPreset(LayoutPreset.BottomRight);
-        Position = new Vector2(-Box - 12f, -Box - 12f);
+        // Pin a Box×Box widget `margin` px inside the bottom-right corner via the
+        // bottom-right anchors + offsets (Control.Position is absolute parent-space,
+        // so it can't place a corner-anchored box).
+        const float margin = 12f;
+        AnchorLeft = 1f;
+        AnchorTop = 1f;
+        AnchorRight = 1f;
+        AnchorBottom = 1f;
+        OffsetLeft = -(Box + margin);
+        OffsetTop = -(Box + margin);
+        OffsetRight = -margin;
+        OffsetBottom = -margin;
 
         _ship = new Sprite2D { Position = Center, Scale = new Vector2(1.4f, 1.4f) };
         AddChild(_ship);

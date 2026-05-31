@@ -15,12 +15,25 @@ public partial class ActionBar : Control
 
     public override void _Ready()
     {
-        // Pin to the bottom centre; size to the icon row.
-        SetAnchorsPreset(LayoutPreset.CenterBottom);
+        // A full-width strip pinned to the bottom edge; a CenterContainer inside it
+        // keeps the icon row horizontally centred without manual layout maths.
+        const float height = 62f, margin = 12f;
+        AnchorLeft = 0f;
+        AnchorRight = 1f;
+        AnchorTop = 1f;
+        AnchorBottom = 1f;
+        OffsetLeft = 0f;
+        OffsetRight = 0f;
+        OffsetTop = -(height + margin);
+        OffsetBottom = -margin;
+
+        var center = new CenterContainer();
+        center.SetAnchorsPreset(LayoutPreset.FullRect);
+        AddChild(center);
 
         var row = new HBoxContainer();
         row.AddThemeConstantOverride("separation", 6);
-        AddChild(row);
+        center.AddChild(row);
 
         for (int i = 0; i < Icons.Length; i++)
         {
@@ -35,11 +48,5 @@ public partial class ActionBar : Control
             b.Pressed += () => GD.Print($"[action] slot {slot} (not wired yet)");
             row.AddChild(b);
         }
-
-        // Re-centre once the row has laid out its children.
-        row.Resized += () =>
-        {
-            row.Position = new Vector2(-row.Size.X / 2f, -row.Size.Y - 12f);
-        };
     }
 }

@@ -25,10 +25,18 @@ public partial class Radar : Control
         _blip = Art.Load("radar/spot_unknown_small.png");
         _radius = Dial / 2f - 8f;
 
-        // Anchor the dial to the top-right corner.
-        CustomMinimumSize = new Vector2(Dial, Dial);
-        SetAnchorsPreset(LayoutPreset.TopRight);
-        Position = new Vector2(-Dial - 12f, 12f);
+        // Pin a Dial×Dial box `margin` px inside the top-right corner via the
+        // right-edge anchors + offsets (Control.Position is absolute parent-space,
+        // not relative to the anchor, so it can't place a right-anchored box).
+        const float margin = 12f;
+        AnchorLeft = 1f;
+        AnchorTop = 0f;
+        AnchorRight = 1f;
+        AnchorBottom = 0f;
+        OffsetLeft = -(Dial + margin);
+        OffsetTop = margin;
+        OffsetRight = -margin;
+        OffsetBottom = Dial + margin;
     }
 
     // SetContacts replaces the blip set with offsets (in the game's screen-space
